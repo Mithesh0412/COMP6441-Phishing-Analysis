@@ -1,5 +1,5 @@
 # COMP6441-Phishing-Analysis
-COMP6441 project — a comparative content analysis of human-written and LLM-generated phishing emails, examining both technical indicators (URLs, domain spoofing, sender anomalies) and psychological manipulation tactics (authority, urgency, personalisation, reward framing).
+COMP6441 project - a comparative content analysis of human-written and LLM-generated phishing emails, examining both technical indicators (URLs, domain spoofing, sender anomalies) and psychological manipulation tactics (authority, urgency, personalisation, reward framing).
 
 ## Dataset
 
@@ -23,9 +23,15 @@ The dataset is not included in this repository - download it separately and plac
 ## Running the analysis
 
 ```bash
+# Create and use a virtual environment
 python3 -m venv venv
 source venv/bin/activate
+
+# Install the required modules to run the analysis
 pip install -r requirements.txt
+
+# Run the analysis to get the 5 json files as output
+python extract_features.py
 ```
 
 By default, the script expects:
