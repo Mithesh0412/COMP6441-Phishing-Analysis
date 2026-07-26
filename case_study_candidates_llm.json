@@ -1,0 +1,181 @@
+[
+  {
+    "sender": "",
+    "body_preview": "Dear Customer, We regret to inform you that our security system has detected a breach in your bank account. To ensure the safety of your funds and personal information, we kindly request you to verify your account details by clicking the link below. Failure to do so within 24 hours may result in the suspension of your account. paypal-security-alert.com Thank you for your prompt attention to this matter. Sincerely, Bank Security Team",
+    "word_count": 72,
+    "avg_sentence_length": 12.2,
+    "num_urls": 1,
+    "domains": [
+      "paypal-security-alert.com"
+    ],
+    "ip_based_urls": [],
+    "lookalike_domains": [
+      "paypal-security-alert.com"
+    ],
+    "sender_typosquat": null,
+    "spoofing_signals": [
+      "lookalike_url_domain:paypal-security-alert.com"
+    ],
+    "urgency_keywords": [
+      "verify",
+      "24 hours"
+    ],
+    "authority_keywords": [
+      "bank",
+      "paypal",
+      "security team"
+    ],
+    "generic_greeting": true,
+    "personalized_greeting": false,
+    "tactic_categories": [
+      "account_suspension",
+      "credential_reset",
+      "financial_invoice",
+      "authority_impersonation"
+    ],
+    "deception_score": 16
+  },
+  {
+    "sender": "",
+    "body_preview": "Dear Elizabeth, We regret to inform you that our system has detected suspicious activities on your bank account. In order to prevent any unauthorized access and secure your funds, it is imperative that you take immediate action to update your account security. Failure to do so may result in a temporary hold on your account. To proceed with the account security update, kindly click on the following link: https://secure-account-update-link.com. This will redirect you to our secure server where you can verify your account information and apply the necessary security measures. Please note that thi",
+    "word_count": 174,
+    "avg_sentence_length": 15.9,
+    "num_urls": 1,
+    "domains": [
+      "secure-account-update-link.com"
+    ],
+    "ip_based_urls": [],
+    "lookalike_domains": [],
+    "sender_typosquat": null,
+    "spoofing_signals": [],
+    "urgency_keywords": [
+      "verify",
+      "unauthorized",
+      "24 hours",
+      "update your",
+      "prevent"
+    ],
+    "authority_keywords": [
+      "bank",
+      "support team",
+      "customer support"
+    ],
+    "generic_greeting": false,
+    "personalized_greeting": true,
+    "tactic_categories": [
+      "account_suspension",
+      "credential_reset",
+      "financial_invoice",
+      "authority_impersonation"
+    ],
+    "deception_score": 16
+  },
+  {
+    "sender": "",
+    "body_preview": "Dear User, We have received reports indicating that your account has been flagged for suspicious activities. To ensure the safety of your account and prevent any unauthorized access, we require you to confirm your account details immediately. By clicking on the link below, you will be directed to a secure page where you can update your account information. Failure to comply within the specified timeframe may result in a temporary suspension of your account. chaseonline-login.com Thank you for your cooperation in this matter. Should you have any concerns or questions, please contact our support",
+    "word_count": 101,
+    "avg_sentence_length": 12.8,
+    "num_urls": 1,
+    "domains": [
+      "chaseonline-login.com"
+    ],
+    "ip_based_urls": [],
+    "lookalike_domains": [
+      "chaseonline-login.com"
+    ],
+    "sender_typosquat": null,
+    "spoofing_signals": [
+      "lookalike_url_domain:chaseonline-login.com"
+    ],
+    "urgency_keywords": [
+      "urgent",
+      "immediately",
+      "confirm your",
+      "unauthorized",
+      "update your",
+      "prevent",
+      "failure to comply"
+    ],
+    "authority_keywords": [
+      "security team",
+      "support team"
+    ],
+    "generic_greeting": true,
+    "personalized_greeting": false,
+    "tactic_categories": [
+      "credential_reset",
+      "authority_impersonation"
+    ],
+    "deception_score": 16
+  },
+  {
+    "sender": "",
+    "body_preview": "Dear Emily, I am Matthew Anderson, the Security Manager at our esteemed financial institution. We have detected some unusual activities on your account and it is vital that we address this matter immediately to safeguard your funds. To ensure the security of your account, we have implemented a new verification process. Please click on the following link to verify your account details: https://account-security-verification.com Please note that failure to comply within 48 hours may lead to temporary suspension or permanent closure of your account. If you have any questions or require further ass",
+    "word_count": 120,
+    "avg_sentence_length": 13.6,
+    "num_urls": 2,
+    "domains": [
+      "account-security-verification.com",
+      "financialinstitution.com"
+    ],
+    "ip_based_urls": [],
+    "lookalike_domains": [],
+    "sender_typosquat": null,
+    "spoofing_signals": [],
+    "urgency_keywords": [
+      "immediately",
+      "verify",
+      "48 hours",
+      "failure to comply"
+    ],
+    "authority_keywords": [
+      "support team",
+      "customer support",
+      "financial institution"
+    ],
+    "generic_greeting": false,
+    "personalized_greeting": true,
+    "tactic_categories": [
+      "account_suspension",
+      "credential_reset",
+      "financial_invoice",
+      "authority_impersonation"
+    ],
+    "deception_score": 15
+  },
+  {
+    "sender": "",
+    "body_preview": "Dear Jessica, I am Mark Wilson, the Security Manager at our esteemed financial institution. We have recently detected some unusual activities on your account and it is crucial that we address this matter immediately to protect your funds. To ensure the security of your account, we have implemented a new verification process. Please click on the following link to verify your account details: https://account-verify-now.com Failure to comply within 48 hours may lead to temporary suspension or permanent closure of your account. Your immediate attention is required. If you have any questions or req",
+    "word_count": 120,
+    "avg_sentence_length": 12.2,
+    "num_urls": 2,
+    "domains": [
+      "account-verify-now.com",
+      "financialinstitution.com"
+    ],
+    "ip_based_urls": [],
+    "lookalike_domains": [],
+    "sender_typosquat": null,
+    "spoofing_signals": [],
+    "urgency_keywords": [
+      "immediately",
+      "verify",
+      "48 hours",
+      "failure to comply"
+    ],
+    "authority_keywords": [
+      "support team",
+      "customer support",
+      "financial institution"
+    ],
+    "generic_greeting": false,
+    "personalized_greeting": true,
+    "tactic_categories": [
+      "account_suspension",
+      "credential_reset",
+      "financial_invoice",
+      "authority_impersonation"
+    ],
+    "deception_score": 15
+  }
+]

@@ -1,0 +1,171 @@
+[
+  {
+    "sender": "\" \" <Wellsfargo_Online@pflagscv.net>",
+    "body_preview": "Dear Customer, Note: incoming transactions might be placed on hold due to verification purpose. Please download the attach file below and fill out all there quested information to complete the verification process to prevent your account from being blocked ====================== Thanks You Security Advisor \u00a92020 Wells Fargo. Services Team. Wells Fargo \u0096 Banking, Credit Cards, Loans, Mortgages & More   Skip to main content \t\t\t Enroll \t\t Customer Service ATMs/Locations Espa\u00f1ol Search Enter search term, then press down arrow to navigate suggestions selected \t\t\t\t\t Personal \t\t\t\t\t Small Business Com",
+    "word_count": 1033,
+    "avg_sentence_length": 38.3,
+    "num_urls": 0,
+    "domains": [],
+    "ip_based_urls": [],
+    "lookalike_domains": [],
+    "sender_typosquat": null,
+    "spoofing_signals": [],
+    "urgency_keywords": [
+      "locked",
+      "prevent"
+    ],
+    "authority_keywords": [
+      "bank",
+      "irs",
+      "government"
+    ],
+    "generic_greeting": true,
+    "personalized_greeting": false,
+    "tactic_categories": [
+      "account_suspension",
+      "credential_reset",
+      "financial_invoice",
+      "prize_reward",
+      "authority_impersonation"
+    ],
+    "deception_score": 15
+  },
+  {
+    "sender": "RAKUTENN <azuzo@terra.com.br>",
+    "body_preview": "*Pay Pal * We need to verify your identity. *Dear customer,* We've noticed that your account is out of compliance with our regulatory requirements. You might be facing account limitation and losing its important services such as buying with linked card's, withdrawing, sending, or receiving money. (including balance) To resolve this, please take a moment to review your account's informations and confirm your identity: *Your Account* ( http://wael01.beget.tech ) We hope to see you again soon. Kind regards, PayPal Team *+ This request will be available for 48 hours.* Please do not reply this emai",
+    "word_count": 255,
+    "avg_sentence_length": 9.1,
+    "num_urls": 6,
+    "domains": [
+      "wael01.beget.tech",
+      "soon.kind",
+      "hours.please",
+      "address.for",
+      "center.paypal",
+      "95131.pp"
+    ],
+    "ip_based_urls": [],
+    "lookalike_domains": [
+      "center.paypal"
+    ],
+    "sender_typosquat": null,
+    "spoofing_signals": [
+      "lookalike_url_domain:center.paypal"
+    ],
+    "urgency_keywords": [
+      "verify",
+      "confirm your",
+      "48 hours"
+    ],
+    "authority_keywords": [
+      "paypal",
+      "irs",
+      "ato"
+    ],
+    "generic_greeting": true,
+    "personalized_greeting": false,
+    "tactic_categories": [
+      "credential_reset",
+      "authority_impersonation"
+    ],
+    "deception_score": 13
+  },
+  {
+    "sender": "Truist Alerts <alertnotifications@message.truist-com>",
+    "body_preview": "Client Name:  N/A Your Online Banking Has Been Suspended  This is an automated message. Please do not reply directly to this email. Review the following and restore your account. Hello,You will not be able to Transfer/Withdraw funds from your account due to the following problems below: 1: Unverified Email Address 2: Invalid Home AddressWe strongly advise you to Click Here And Restore Your Account before 48hrs of receiving this warning notification.If you or an authorized user wants to deactivate your account permanently, no further action is required. All Fields Are Required.Thank you for cho",
+    "word_count": 248,
+    "avg_sentence_length": 10.7,
+    "num_urls": 5,
+    "domains": [
+      "notification.if",
+      "required.thank",
+      "message.truist.com",
+      "www.truist.com",
+      "www.truist.com"
+    ],
+    "ip_based_urls": [],
+    "lookalike_domains": [],
+    "sender_typosquat": null,
+    "spoofing_signals": [],
+    "urgency_keywords": [
+      "verify",
+      "suspend",
+      "suspended",
+      "click here"
+    ],
+    "authority_keywords": [
+      "bank"
+    ],
+    "generic_greeting": false,
+    "personalized_greeting": false,
+    "tactic_categories": [
+      "account_suspension",
+      "credential_reset",
+      "financial_invoice",
+      "authority_impersonation"
+    ],
+    "deception_score": 13
+  },
+  {
+    "sender": "\" \" <Wellsfargo_Online@knology.net>",
+    "body_preview": "Alert: The following payee(s) has been added to your list of payees in your BillPay service. Please Click on your mail below to download the attached file and fill out all the requested information and complete the verification process to protect you Thank you for helping us keep your account safe. -------------------- \u00a92020 Wells Fargo Bill Payment Team. Wells Fargo \u0096 Banking, Credit Cards, Loans, Mortgages & More   Skip to main content \t\t\t Enroll \t\t Customer Service ATMs/Locations Espa\u00f1ol Search Enter search term, then press down arrow to navigate suggestions selected \t\t\t\t\t Personal \t\t\t\t\t Sm",
+    "word_count": 1045,
+    "avg_sentence_length": 38.7,
+    "num_urls": 0,
+    "domains": [],
+    "ip_based_urls": [],
+    "lookalike_domains": [],
+    "sender_typosquat": null,
+    "spoofing_signals": [],
+    "urgency_keywords": [
+      "prevent"
+    ],
+    "authority_keywords": [
+      "bank",
+      "irs",
+      "government"
+    ],
+    "generic_greeting": false,
+    "personalized_greeting": false,
+    "tactic_categories": [
+      "credential_reset",
+      "financial_invoice",
+      "prize_reward",
+      "authority_impersonation"
+    ],
+    "deception_score": 12
+  },
+  {
+    "sender": "\"Help Center\" <info2845212418421235081337080@eksam.id>",
+    "body_preview": "Your\u00a0suspension notification Hi jose@monkey.org, We could not authorize your payment for the next billing cycle of your subscription therefore we've\u00a0suspended your membership. But your current subscription is active until it expires. Obviously we'd love to have you back, simply click\u00a0restart your membership to\u00a0update your details and\u00a0continue to\u00a0enjoy all the best TV shows & movies without interruption. RESTART MEMBERSHIP We're here to help if you need it. Visit the Help Center for more info or contact us. ?The Netflix Team \u00a0  Questions? Visit the Help Center This account email has been sent t",
+    "word_count": 185,
+    "avg_sentence_length": 11.1,
+    "num_urls": 2,
+    "domains": [
+      "monkey.org",
+      "help.netflix.com"
+    ],
+    "ip_based_urls": [],
+    "lookalike_domains": [],
+    "sender_typosquat": null,
+    "spoofing_signals": [],
+    "urgency_keywords": [
+      "suspend",
+      "suspended",
+      "expire",
+      "expires",
+      "update your"
+    ],
+    "authority_keywords": [
+      "netflix"
+    ],
+    "generic_greeting": false,
+    "personalized_greeting": false,
+    "tactic_categories": [
+      "account_suspension",
+      "credential_reset",
+      "financial_invoice"
+    ],
+    "deception_score": 12
+  }
+]

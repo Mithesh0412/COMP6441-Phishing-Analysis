@@ -1,0 +1,408 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Phishing Evidence analyser</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Courier+Prime:wght@400;700&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<meta name="color-scheme" content="light">
+<style>
+  :root {
+    color-scheme: light;
+    --paper: #E8DFC8;
+    --paper-light: #F1EADA;
+    --ink: #1B2A42;
+    --ink-soft: #4A5568;
+    --stamp-red: #A32B2B;
+    --stamp-amber: #B4791A;
+    --stamp-green: #2F6B4F;
+    --mark-authority: #C9DCF0;
+    --mark-urgency: #F5C6C6;
+    --mark-reward: #F5E3B3;
+    --mark-personal: #DCD3EE;
+    --mark-spoofing: #F0B8A0;
+    --border-soft: rgba(27,42,66,0.18);
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    background: #cfc6ac;
+    font-family: 'Source Serif 4', serif;
+    color: var(--ink);
+    padding: 32px 16px;
+  }
+  .sheet {
+    max-width: 780px;
+    margin: 0 auto;
+    background: var(--paper);
+    border: 1px solid var(--border-soft);
+    box-shadow: 0 2px 0 var(--border-soft), 0 18px 40px rgba(0,0,0,0.18);
+    padding: 40px 44px 48px;
+    position: relative;
+  }
+  .case-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    border-bottom: 2px solid var(--ink);
+    padding-bottom: 14px;
+    margin-bottom: 28px;
+  }
+  .case-title {
+    font-family: 'Courier Prime', monospace;
+    font-weight: 700;
+    font-size: 22px;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+  }
+  .case-id {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 12px;
+    color: var(--ink-soft);
+  }
+  label {
+    display: block;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--ink-soft);
+    margin-bottom: 6px;
+  }
+  textarea, input[type=text] {
+    width: 100%;
+    font-family: 'Source Serif 4', serif;
+    font-size: 15px;
+    color: var(--ink);
+    background-color: var(--paper-light);
+    border: 1px solid var(--border-soft);
+    padding: 12px 14px;
+    resize: vertical;
+    color-scheme: light;
+    -webkit-appearance: none;
+    appearance: none;
+    border-radius: 0;
+  }
+  textarea { min-height: 160px; line-height: 1.6; }
+  .field { margin-bottom: 18px; }
+  button {
+    font-family: 'Courier Prime', monospace;
+    font-weight: 700;
+    font-size: 14px;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    background-color: var(--ink);
+    color: var(--paper-light);
+    border: none;
+    padding: 12px 22px;
+    cursor: pointer;
+    color-scheme: light;
+    -webkit-appearance: none;
+    appearance: none;
+    border-radius: 0;
+  }
+  button:hover { background-color: #0f1a2c; }
+  button:active { transform: translateY(1px); }
+  #results { margin-top: 32px; display: none; }
+  .stamp-row {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    margin-bottom: 24px;
+  }
+  .stamp {
+    font-family: 'Courier Prime', monospace;
+    font-weight: 700;
+    font-size: 20px;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    border: 3px solid currentColor;
+    padding: 8px 18px;
+    display: inline-block;
+    transform: rotate(-4deg);
+    white-space: nowrap;
+  }
+  .stamp.high { color: var(--stamp-red); }
+  .stamp.medium { color: var(--stamp-amber); }
+  .stamp.low { color: var(--stamp-green); }
+  .stamp-note {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 12px;
+    color: var(--ink-soft);
+    line-height: 1.5;
+  }
+  h3 {
+    font-family: 'Courier Prime', monospace;
+    font-size: 13px;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--ink-soft);
+    border-bottom: 1px solid var(--border-soft);
+    padding-bottom: 6px;
+    margin: 26px 0 12px;
+  }
+  .exhibit-list { list-style: none; padding: 0; margin: 0; }
+  .exhibit-list li {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 13px;
+    padding: 6px 0;
+    border-bottom: 1px dashed var(--border-soft);
+    display: flex;
+    gap: 10px;
+  }
+  .tag {
+    display: inline-block;
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    padding: 2px 7px;
+    flex-shrink: 0;
+    align-self: flex-start;
+    margin-top: 1px;
+  }
+  .tag.authority { background: var(--mark-authority); }
+  .tag.urgency { background: var(--mark-urgency); }
+  .tag.reward { background: var(--mark-reward); }
+  .tag.personal { background: var(--mark-personal); }
+  .tag.spoofing { background: var(--mark-spoofing); }
+  .annotated {
+    font-size: 15px;
+    line-height: 1.9;
+    white-space: pre-wrap;
+    background: var(--paper-light);
+    border: 1px solid var(--border-soft);
+    padding: 16px 18px;
+  }
+  mark { padding: 1px 2px; }
+  mark.authority { background: var(--mark-authority); }
+  mark.urgency { background: var(--mark-urgency); }
+  mark.reward { background: var(--mark-reward); }
+  mark.personal { background: var(--mark-personal); }
+  mark.spoofing { background: var(--mark-spoofing); }
+  .legend {
+    display: flex;
+    gap: 16px;
+    flex-wrap: wrap;
+    margin-top: 10px;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 11px;
+    color: var(--ink-soft);
+  }
+  .legend span { display: flex; align-items: center; gap: 5px; }
+  .swatch { width: 11px; height: 11px; display: inline-block; }
+  .empty-note {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 12px;
+    color: var(--ink-soft);
+    font-style: italic;
+  }
+</style>
+</head>
+
+<body>
+<div class="sheet">
+  <div class="case-header">
+    <div class="case-title">Phishing evidence analyser</div>
+    <div class="case-id">COMP6441 - content analysis tool</div>
+  </div>
+
+  <div class="field">
+    <label for="sender">Sender (optional)</label>
+    <input type="text" id="sender" placeholder="e.g. support@paypa1-secure.com">
+  </div>
+  <div class="field">
+    <label for="body">Email body</label>
+    <textarea id="body" placeholder="Paste the full email text here..."></textarea>
+  </div>
+  <button onclick="analyse()">analyse email</button>
+
+  <div id="results"></div>
+</div>
+
+<script>
+const URGENCY_WORDS = ["urgent","immediately","verify","suspend","suspended","act now","expire","expires","expired","limited time","click here","confirm your","restricted","unauthorized","unusual activity","final notice","action required","24 hours","48 hours","locked","reactivate","update your","security alert","prevent","failure to comply"];
+const AUTHORITY_WORDS = ["bank","paypal","amazon","microsoft","apple","irs","government","security team","head of security","it department","administrator","support team","netflix","dhl","fedex","ups","google","customer support","financial institution","official"];
+const REWARD_WORDS = ["winner","congratulations","claim your","prize","free gift","selected","opportunity","compensation package","work-from-home","recruiter"];
+const COMMON_BRANDS = ["paypal","amazon","microsoft","apple","google","bankofamerica","chase","netflix","dhl","fedex","ups","irs", "ato"];
+
+function findMatches(text, wordlist) {
+  const lower = text.toLowerCase();
+  const found = [];
+  wordlist.forEach(w => { if (lower.includes(w)) found.push(w); });
+  return found;
+}
+
+// Levenshtein distance between two strings
+// Code adapted from https://www.digitalocean.com/community/tutorials/levenshtein-distance-python
+function levenshteinDist(a, b) {
+  const m = a.length, n = b.length;
+  const dp = Array.from({length: m+1}, () => new Array(n+1).fill(0));
+  for (let i = 0; i <= m; i++) dp[i][0] = i;
+  for (let j = 0; j <= n; j++) dp[0][j] = j;
+  for (let i = 1; i <= m; i++) {
+    for (let j = 1; j <= n; j++) {
+      dp[i][j] = a[i-1] === b[j-1] ? dp[i-1][j-1] : 1 + Math.min(dp[i-1][j-1], dp[i-1][j], dp[i][j-1]);
+    }
+  }
+  return dp[m][n];
+}
+
+function findDomains(text) {
+  const regex = /(?:https?:\/\/)?(?:www\.)?[a-zA-Z0-9-]+\.[a-zA-Z]{2,}(?:\.[a-zA-Z]{2,})?(?:\/[^\s,]*)?/g;
+  const matches = text.match(regex) || [];
+  return matches.filter(m => /\.[a-zA-Z]{2,}/.test(m));
+}
+
+function extractDomainFromSender(sender) {
+  const m = sender.match(/@([a-zA-Z0-9.-]+)/);
+  return m ? m[1] : sender;
+}
+
+// Fuzzy brand-impersonation check using levenshtein distance
+// Helps catch things like 'micrasoft' that a plain substring check on 'microsoft' would miss
+function findTyposquat(domain) {
+  const d = domain.toLowerCase().replace(/^www\./, "");
+  const tokens = d.split(/[.\-]/).filter(t => t.length >= 5);
+  for (const token of tokens) {
+    for (const brand of COMMON_BRANDS) {
+      if (token === brand) continue;
+      if (brand.length < 5) continue;
+      const dist = levenshteinDist(token, brand);
+      const maxAllowed = brand.length <= 6 ? 1 : 2;
+      if (dist > 0 && dist <= maxAllowed && Math.abs(token.length - brand.length) <= 2) {
+        return { token, brand, dist };
+      }
+    }
+  }
+  return null;
+}
+
+// Look at the sign-off for an organisation name, e.g. "UNSW IT Security Team" or "The Wells Fargo Team"
+function extractClaimedOrg(text) {
+  const patterns = [
+    /(?:regards|sincerely|thank you)[,\s]*\n?\s*([A-Z][A-Za-z]+)\s+(?:IT|Security|Support|Team)/i,
+    /^([A-Z]{2,10})\s+(?:IT|Security|Support)/im
+  ];
+  for (const p of patterns) {
+    const m = text.match(p);
+    if (m) return m[1];
+  }
+  return null;
+}
+
+function checkOrgDomainMismatch(text, domains) {
+  const org = extractClaimedOrg(text);
+  if (!org || domains.length === 0) return null;
+  const orgLower = org.toLowerCase();
+  const matches = domains.some(d => d.toLowerCase().includes(orgLower));
+  return matches ? null : { org, domains };
+}
+
+function isLookalike(domain) {
+  const d = domain.toLowerCase();
+  const exactSubstring = COMMON_BRANDS.some(b => d.includes(b) && !d.endsWith(b + ".com") && !d.startsWith(b + "."));
+  return exactSubstring || !!findTyposquat(d);
+}
+
+function isPersonalized(text) {
+  const m = text.trim().toLowerCase().match(/^dear\s+([a-z]+)/);
+  if (!m) return false;
+  const generic = ["customer","user","valued","account","sir","madam","team"];
+  return !generic.includes(m[1]);
+}
+
+function escapeHtml(s) {
+  return s.replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;");
+}
+
+function annotate(text, urgency, authority, reward) {
+  let html = escapeHtml(text);
+  const wrap = (word, cls) => {
+    const re = new RegExp("(" + word.replace(/[.*+?^${}()|[\]\\]/g, "\\$&") + ")", "gi");
+    html = html.replace(re, '<mark class="' + cls + '">$1</mark>');
+  };
+  urgency.forEach(w => wrap(w, "urgency"));
+  authority.forEach(w => wrap(w, "authority"));
+  reward.forEach(w => wrap(w, "reward"));
+  return html;
+}
+
+function analyse() {
+  const sender = document.getElementById('sender').value.trim();
+  const body = document.getElementById('body').value.trim();
+  const results = document.getElementById('results');
+
+  if (!body) {
+    results.style.display = 'block';
+    results.innerHTML = '<p class="empty-note">Paste an email body above before analyzing.</p>';
+    return;
+  }
+
+  const urgency = findMatches(body, URGENCY_WORDS);
+  const authority = findMatches(body, AUTHORITY_WORDS);
+  const reward = findMatches(body, REWARD_WORDS);
+  const domains = findDomains(body);
+  const lookalikes = domains.filter(isLookalike);
+  const personalized = isPersonalized(body);
+  const senderDomain = sender ? extractDomainFromSender(sender) : "";
+  const senderTyposquat = sender ? findTyposquat(senderDomain) : null;
+  const senderSuspicious = !!senderTyposquat;
+  const orgMismatch = checkOrgDomainMismatch(body, domains);
+
+  let biases = [];
+  if (authority.length) biases.push("authority");
+  if (urgency.length) biases.push("urgency");
+  if (reward.length) biases.push("curiosity/reward");
+  if (personalized) biases.push("liking/trust");
+  if (lookalikes.length || senderSuspicious || orgMismatch) biases.push("technical spoofing");
+
+  const score = urgency.length + authority.length + reward.length * 1.5 + (lookalikes.length ? 3 : 0) + (personalized ? 2 : 0) + (senderSuspicious ? 3 : 0) + (orgMismatch ? 4 : 0);
+
+  let tier, tierClass, note;
+  if (score >= 10) {
+    tier = "High risk"; tierClass = "high";
+    note = "Multiple layered manipulation cues detected — consistent with the layered-bias pattern described in Yao et al. (2025).";
+  } else if (score >= 4) {
+    tier = "Medium risk"; tierClass = "medium";
+    note = "Some manipulation cues present, but fewer layered triggers than a typical high-confidence phishing email.";
+  } else {
+    tier = "Low risk"; tierClass = "low";
+    note = "Few or no manipulation cues detected by this heuristic — note this does not guarantee legitimacy.";
+  }
+
+  const exhibits = [];
+  if (authority.length) exhibits.push({tag:"authority", text:"Authority claim: " + authority.join(", ")});
+  if (urgency.length) exhibits.push({tag:"urgency", text:"Urgency language: " + urgency.join(", ")});
+  if (reward.length) exhibits.push({tag:"reward", text:"Reward/opportunity framing: " + reward.join(", ")});
+  if (personalized) exhibits.push({tag:"personal", text:"Personalized greeting used to build rapport"});
+  if (lookalikes.length) exhibits.push({tag:"spoofing", text:"Suspicious lookalike domain(s): " + lookalikes.join(", ")});
+  if (senderSuspicious) exhibits.push({tag:"spoofing", text:"Sender domain \"" + senderTyposquat.token + "\" is a likely typosquat of \"" + senderTyposquat.brand + "\" (edit distance " + senderTyposquat.dist + ")"});
+  if (orgMismatch) exhibits.push({tag:"spoofing", text:"Email claims to be from \"" + orgMismatch.org + "\" but links to unrelated domain(s): " + orgMismatch.domains.join(", ")});
+
+  const exhibitHtml = exhibits.length
+    ? '<ul class="exhibit-list">' + exhibits.map(e => '<li><span class="tag ' + e.tag + '">' + e.tag + '</span>' + escapeHtml(e.text) + '</li>').join('') + '</ul>'
+    : '<p class="empty-note">No notable manipulation cues detected.</p>';
+
+  results.style.display = 'block';
+  results.innerHTML = `
+    <div class="stamp-row">
+      <div class="stamp ${tierClass}">${tier}</div>
+      <div class="stamp-note">${note}<br>Biases detected: ${biases.length ? biases.join(", ") : "none"}</div>
+    </div>
+    <h3>Exhibits — evidence found</h3>
+    ${exhibitHtml}
+    <h3>Annotated email</h3>
+    <div class="annotated">${annotate(body, urgency, authority, reward)}</div>
+    <div class="legend">
+      <span><span class="swatch" style="background:var(--mark-authority)"></span>Authority</span>
+      <span><span class="swatch" style="background:var(--mark-urgency)"></span>Urgency</span>
+      <span><span class="swatch" style="background:var(--mark-reward)"></span>Reward/opportunity</span>
+      <span><span class="swatch" style="background:var(--mark-personal)"></span>Personalization</span>
+      <span><span class="swatch" style="background:var(--mark-spoofing)"></span>Domain/sender spoofing</span>
+    </div>
+  `;
+}
+</script>
+</body>
+</html>
