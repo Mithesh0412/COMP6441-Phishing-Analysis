@@ -308,7 +308,7 @@ function isLookalike(domain) {
 function ispersonalised(text) {
   const m = text.trim().toLowerCase().match(/^dear\s+([a-z]+)/);
   if (!m) return false;
-  const generic = ["customer","user","valued","account","sir","madam","team"];
+  const generic = ["customer","user","valued","account","sir","madam","team","employee","student"];
   return !generic.includes(m[1]);
 }
 
