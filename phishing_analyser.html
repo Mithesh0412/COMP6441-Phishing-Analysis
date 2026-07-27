@@ -305,18 +305,26 @@ function isLookalike(domain) {
   return exactSubstring || !!findTyposquat(d);
 }
 
-function isPersonalized(text) {
+function ispersonalised(text) {
   const m = text.trim().toLowerCase().match(/^dear\s+([a-z]+)/);
   if (!m) return false;
   const generic = ["customer","user","valued","account","sir","madam","team"];
   return !generic.includes(m[1]);
 }
 
+function extractpersonalisedName(text) {
+  const m = text.trim().match(/^dear\s+([a-zA-Z]+)/i);
+  if (!m) return null;
+  const generic = ["customer","user","valued","account","sir","madam","team","employee","student"];
+  if (generic.includes(m[1].toLowerCase())) return null;
+  return m[1];
+}
+
 function escapeHtml(s) {
   return s.replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;");
 }
 
-function annotate(text, urgency, authority, reward) {
+function annotate(text, urgency, authority, reward, personalName) {
   let html = escapeHtml(text);
   const wrap = (word, cls) => {
     const re = new RegExp("(" + word.replace(/[.*+?^${}()|[\]\\]/g, "\\$&") + ")", "gi");
@@ -325,6 +333,7 @@ function annotate(text, urgency, authority, reward) {
   urgency.forEach(w => wrap(w, "urgency"));
   authority.forEach(w => wrap(w, "authority"));
   reward.forEach(w => wrap(w, "reward"));
+  if (personalName) wrap(personalName, "personal");
   return html;
 }
 
@@ -344,7 +353,8 @@ function analyse() {
   const reward = findMatches(body, REWARD_WORDS);
   const domains = findDomains(body);
   const lookalikes = domains.filter(isLookalike);
-  const personalized = isPersonalized(body);
+  const personalised = ispersonalised(body);
+  const personalName = extractpersonalisedName(body);
   const senderDomain = sender ? extractDomainFromSender(sender) : "";
   const senderTyposquat = sender ? findTyposquat(senderDomain) : null;
   const senderSuspicious = !!senderTyposquat;
@@ -354,10 +364,10 @@ function analyse() {
   if (authority.length) biases.push("authority");
   if (urgency.length) biases.push("urgency");
   if (reward.length) biases.push("curiosity/reward");
-  if (personalized) biases.push("liking/trust");
+  if (personalised) biases.push("liking/trust");
   if (lookalikes.length || senderSuspicious || orgMismatch) biases.push("technical spoofing");
 
-  const score = urgency.length + authority.length + reward.length * 1.5 + (lookalikes.length ? 3 : 0) + (personalized ? 2 : 0) + (senderSuspicious ? 3 : 0) + (orgMismatch ? 4 : 0);
+  const score = urgency.length + authority.length + reward.length * 1.5 + (lookalikes.length ? 3 : 0) + (personalised ? 2 : 0) + (senderSuspicious ? 3 : 0) + (orgMismatch ? 4 : 0);
 
   let tier, tierClass, note;
   if (score >= 10) {
@@ -375,7 +385,7 @@ function analyse() {
   if (authority.length) exhibits.push({tag:"authority", text:"Authority claim: " + authority.join(", ")});
   if (urgency.length) exhibits.push({tag:"urgency", text:"Urgency language: " + urgency.join(", ")});
   if (reward.length) exhibits.push({tag:"reward", text:"Reward/opportunity framing: " + reward.join(", ")});
-  if (personalized) exhibits.push({tag:"personal", text:"Personalized greeting used to build rapport"});
+  if (personalised) exhibits.push({tag:"personal", text:"personalised greeting used to build rapport"});
   if (lookalikes.length) exhibits.push({tag:"spoofing", text:"Suspicious lookalike domain(s): " + lookalikes.join(", ")});
   if (senderSuspicious) exhibits.push({tag:"spoofing", text:"Sender domain \"" + senderTyposquat.token + "\" is a likely typosquat of \"" + senderTyposquat.brand + "\" (edit distance " + senderTyposquat.dist + ")"});
   if (orgMismatch) exhibits.push({tag:"spoofing", text:"Email claims to be from \"" + orgMismatch.org + "\" but links to unrelated domain(s): " + orgMismatch.domains.join(", ")});
@@ -393,12 +403,12 @@ function analyse() {
     <h3>Exhibits — evidence found</h3>
     ${exhibitHtml}
     <h3>Annotated email</h3>
-    <div class="annotated">${annotate(body, urgency, authority, reward)}</div>
+    <div class="annotated">${annotate(body, urgency, authority, reward, personalName)}</div>
     <div class="legend">
       <span><span class="swatch" style="background:var(--mark-authority)"></span>Authority</span>
       <span><span class="swatch" style="background:var(--mark-urgency)"></span>Urgency</span>
       <span><span class="swatch" style="background:var(--mark-reward)"></span>Reward/opportunity</span>
-      <span><span class="swatch" style="background:var(--mark-personal)"></span>Personalization</span>
+      <span><span class="swatch" style="background:var(--mark-personal)"></span>Personalisation</span>
       <span><span class="swatch" style="background:var(--mark-spoofing)"></span>Domain/sender spoofing</span>
     </div>
   `;
